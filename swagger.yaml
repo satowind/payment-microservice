@@ -25,13 +25,15 @@ paths:
               required:
                 - amount
                 - currency
+    get:
+      summary: Get All payment
       responses:
-        '201':
-          description: Payment created
+        "200":
+          description: Payments response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Payment'
+                $ref: "#/components/schemas/Payment"
 
   /payments/{id}:
     get:
@@ -43,13 +45,13 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Payment details
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Payment'
-        '404':
+                $ref: "#/components/schemas/Payment"
+        "404":
           description: Payment not found
 
     patch:
@@ -73,9 +75,9 @@ paths:
               required:
                 - status
       responses:
-        '200':
+        "200":
           description: Updated payment
-        '404':
+        "404":
           description: Payment not found
 
 components:
