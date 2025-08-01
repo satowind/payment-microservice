@@ -60,8 +60,21 @@ const updatePaymentStatus = async (id, status) => {
 
 const processPaymentAsync = (id) => {
   setTimeout(async () => {
-    await updatePaymentStatus(id, "completed");
-    console.log(`Payment ${id} processed.`);
+    try {
+      const payment = await getPaymentById(id);
+      if (!payment) {
+        console.error(`Payment with ID ${id} not found.`);
+        return;
+      }
+      if (payment.status !== "pending") {
+        console.log(`Payment ${id} already processed.`);
+        return;
+      }
+      await updatePaymentStatus(id, "completed");
+      console.log(`Payment ${id} processed.`);
+    } catch (error) {
+      console.error(`Error processing payment ${id}:`, error);
+    }
   }, 5000);
 };
 
